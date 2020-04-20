@@ -28,9 +28,30 @@ app.get("/", (req: any, res: any) => {
 io.on("connection", function(socket: any) {
     console.log("a user connected");
 
+    socket.on("newUser", function(username: string){
+        socket.username = username;
+        socket.broadcast.emit('message', socket.username + ' has just connected to game!');
+    });
+
     //слушаем сообщения от клиента типа message
-    socket.on("message", function(message: any) {
-        console.log(message);
+    socket.on("rollDice", function(message: string) {
+        console.log(socket.username + " wants:" + message);
+    });
+
+    socket.on("buyCard", function(message: string) {
+        console.log(socket.username + " wants:" + message);
+    });
+
+    socket.on("sellCard", function(message: any) {
+        console.log(socket.username + " wants:" + message);
+    });
+
+    socket.on("buyHouse", function(message: any) {
+        console.log(socket.username + " wants:" + message);
+    });
+
+    socket.on("sellHouse", function(message: any) {
+        console.log(socket.username + " wants:" + message);
     });
 });
 
