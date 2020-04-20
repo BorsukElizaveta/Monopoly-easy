@@ -7,15 +7,52 @@
     <title>Document</title>
 </head>
 <body>
-<button onClick="sendMsg()">Push mi</button>
+<button onClick="rollDice()">Roll Dice</button>
+<button onClick="buyCard()">Buy Card</button>
+<button onClick="sellCard()">Sell Card</button>
+<button onClick="buyHouse()">Buy House</button>
+<button onClick="sellHouse()">Sell House</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script>
     const socket = io("http://localhost:3000");
 
-    function sendMsg() {
-        socket.emit("message", "Button click");
+    // Посетителя просят ввести имя пользователя...
+    let username = prompt('What\'s your username?');
+
+    // Оно отправляется в сообщении типа "sendUser"
+    socket.emit("newUser", username);
+
+    socket.on('sendUser', function(message) {
+        alert('The server has a message for you: ' + message); // сообщает что игрок подключился
+    })
+
+    //Слушает текстовые сообщения от сервера
+    socket.on('message', function(message) {
+        alert('The server has a message for you: ' + message); // сообщает что игрок подключился
+    })
+
+    //отправляет на сервер данные о нажатии на кнопку для вызова соответствующей функции
+    function rollDice() {
+        socket.emit("rollDice", "User roll Dice");
     }
+
+    function buyCard() {
+        socket.emit("buyCard", "User buyCard click");
+    }
+
+    function sellCard() {
+        socket.emit("sellCard", "User sellCard click");
+    }
+
+    function buyHouse() {
+        socket.emit("buyHouse", "User buyCard click");
+    }
+
+    function sellHouse() {
+        socket.emit("sellHouse", "User sellHouse click");
+    }
+
 </script>
 </body>
 </html>
