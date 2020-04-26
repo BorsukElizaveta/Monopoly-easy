@@ -1,23 +1,10 @@
 {
   "compilerOptions": {
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "allowSyntheticDefaultImports": true,
-    "module": "es6",
-    "target": "es6",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "outDir": "../../dist",
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "../../node_modules/*"
-      ]
-    }
+    "target": "ES3",
+    "module": "commonjs",
+    "outDir": "../../public/client"
   },
   "include": [
-    "./**/*"
+    "**/*.ts"
   ]
 }
