@@ -1,32 +1,26 @@
 var Client = /** @class */ (function () {
     function Client() {
-        var _this = this;
-        //отправляет на сервер данные о нажатии на кнопку для вызова соответствующей функции
-        this.rollDice = function () {
-            _this.socket.emit("rollDice", "User roll Dice");
-            console.log("roll");
-        };
-        this.buyCard = function () {
-            _this.socket.emit("buyCard", "User buyCard click");
-        };
-        this.sellCard = function () {
-            _this.socket.emit("sellCard", "User sellCard click");
-        };
-        this.buyHouse = function () {
-            _this.socket.emit("buyHouse", "User buyCard click");
-        };
-        this.sellHouse = function () {
-            _this.socket.emit("sellHouse", "User sellHouse click");
-        };
         this.socket = io();
         // Посетителя просят ввести имя пользователя...
         var username = prompt('What\'s your username?');
+        //отрисовывает игрока
+        //TODO надо продумать как отсылать уже подключеных игроков
+        $("#players").append("<div class=\"player\">\n" +
+            "        <div class=\"player-marker\"></div>\n" +
+            "        <div class=\"player-name\">" + username + "</div>\n" +
+            "        <div class=\"player-money\"><span>$</span><span>" + "66 000" + "</span></div>\n" +
+            "    </div>");
         // Оно отправляется в сообщении типа "sendUser"
         this.socket.emit('newUser', username);
-        this.socket.on('newUser', function (data) {
+        this.socket.on('newUserReport', function (data) {
+            //alert('The server has a message for you: ' + message); // сообщает что-то от сервера
             var infoPlayer = JSON.parse(data);
-            $(".players > .player1 > .player-name").text(infoPlayer.name);
-            $(".players > .player1 > .player-money").text(infoPlayer.money);
+            //отрисовывает подключенного игрока
+            $("#players").append("<div class=\"player\">\n" +
+                "        <div class=\"player-marker\"></div>\n" +
+                "        <div class=\"player-name\">" + infoPlayer.name + "</div>\n" +
+                "        <div class=\"player-money\"><span>$</span><span>" + infoPlayer.money + "</span></div>\n" +
+                "    </div>");
         });
         this.socket.on('sendUser', function (message) {
             alert('The server has a message for you: ' + message); // сообщает что-то от сервера
@@ -36,6 +30,23 @@ var Client = /** @class */ (function () {
             alert('The server has a message for you: ' + message); // сообщает что игрок подключился
         });
     }
+    //отправляет на сервер данные о нажатии на кнопку для вызова соответствующей функции
+    Client.prototype.rollDice = function () {
+        this.socket.emit("rollDice", "User roll Dice");
+        console.log("roll");
+    };
+    Client.prototype.buyCard = function () {
+        this.socket.emit("buyCard", "User buyCard click");
+    };
+    Client.prototype.sellCard = function () {
+        this.socket.emit("sellCard", "User sellCard click");
+    };
+    Client.prototype.buyHouse = function () {
+        this.socket.emit("buyHouse", "User buyCard click");
+    };
+    Client.prototype.sellHouse = function () {
+        this.socket.emit("sellHouse", "User sellHouse click");
+    };
     return Client;
 }());
 var client = new Client();

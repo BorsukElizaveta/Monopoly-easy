@@ -3,5 +3,8 @@
 .idea
 out
 
+*.js
+*.js.map
+
 #Node.js
 /node_modules

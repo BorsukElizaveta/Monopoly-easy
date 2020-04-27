@@ -36,13 +36,13 @@ class App {
             socket.emit("message", "Hello " + socket.id);
 
             socket.on("newUser", function(username: string){
-                socket.broadcast.emit('message', username + ' has just connected to game!');
                 let data = {
                     "name": username,
                     "money": "66 000"
                 };
+                socket.broadcast.emit('newUserReport', JSON.stringify( data ));
                 console.log(data);
-                socket.emit("newUser", JSON.stringify( data ));
+                //socket.emit("newUser", JSON.stringify( data ));
             });
 
             //слушаем сообщения от клиента типа message

@@ -7,14 +7,26 @@ class Client {
         // Посетителя просят ввести имя пользователя...
         let username = prompt('What\'s your username?');
 
+        //отрисовывает игрока
+        //TODO надо продумать как отсылать уже подключеных игроков
+        $("#players").append("<div class=\"player\">\n" +
+            "        <div class=\"player-marker\"></div>\n" +
+            "        <div class=\"player-name\">" + username + "</div>\n" +
+            "        <div class=\"player-money\"><span>$</span><span>" + "66 000" + "</span></div>\n" +
+            "    </div>");
+
         // Оно отправляется в сообщении типа "sendUser"
         this.socket.emit('newUser', username);
 
-        this.socket.on('newUser', function(data){
+        this.socket.on('newUserReport', function(data) {
+            //alert('The server has a message for you: ' + message); // сообщает что-то от сервера
             let infoPlayer = JSON.parse ( data );
-
-            $(".players > .player1 > .player-name").text(infoPlayer.name);
-            $(".players > .player1 > .player-money").text(infoPlayer.money);
+            //отрисовывает подключенного игрока
+            $("#players").append("<div class=\"player\">\n" +
+                "        <div class=\"player-marker\"></div>\n" +
+                "        <div class=\"player-name\">" + infoPlayer.name + "</div>\n" +
+                "        <div class=\"player-money\"><span>$</span><span>" + infoPlayer.money + "</span></div>\n" +
+                "    </div>");
         })
 
         this.socket.on('sendUser', function(message: any) {
@@ -29,24 +41,24 @@ class Client {
     }
 
     //отправляет на сервер данные о нажатии на кнопку для вызова соответствующей функции
-    public rollDice = () => {
+    public rollDice() {
         this.socket.emit("rollDice", "User roll Dice");
         console.log("roll");
     }
 
-    public buyCard = () => {
+    public buyCard() {
         this.socket.emit("buyCard", "User buyCard click");
     }
 
-    public sellCard = () => {
+    public sellCard() {
         this.socket.emit("sellCard", "User sellCard click");
     }
 
-    public buyHouse = () => {
+    public buyHouse() {
         this.socket.emit("buyHouse", "User buyCard click");
     }
 
-    public sellHouse = () => {
+    public sellHouse() {
         this.socket.emit("sellHouse", "User sellHouse click");
     }
 }
