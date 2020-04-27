@@ -43,52 +43,6 @@
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script src="client.js"></script>
-<!--<script>
-    const socket = io("http://localhost:3000");
 
-    // Посетителя просят ввести имя пользователя...
-    let username = prompt('What\'s your username?');
-
-    // Оно отправляется в сообщении типа "sendUser"
-    socket.emit('newUser', username);
-
-    socket.on('newUser', function(data){
-        let infoPlayer = JSON.parse ( data );
-        //alert(infoPlayer.name);
-        //alert(infoPlayer.money);
-        $(".players > .player1 > .player-name").text(infoPlayer.name);
-        $(".players > .player1 > .player-money").text(infoPlayer.money);
-    })
-
-    socket.on('sendUser', function(message) {
-        alert('The server has a message for you: ' + message); // сообщает что-то от сервера
-    })
-
-    //Слушает текстовые сообщения от сервера
-    socket.on('message', function(message) {
-        alert('The server has a message for you: ' + message); // сообщает что игрок подключился
-    })
-
-    //отправляет на сервер данные о нажатии на кнопку для вызова соответствующей функции
-    function rollDice() {
-        socket.emit("rollDice", "User roll Dice");
-    }
-
-    function buyCard() {
-        socket.emit("buyCard", "User buyCard click");
-    }
-
-    function sellCard() {
-        socket.emit("sellCard", "User sellCard click");
-    }
-
-    function buyHouse() {
-        socket.emit("buyHouse", "User buyCard click");
-    }
-
-    function sellHouse() {
-        socket.emit("sellHouse", "User sellHouse click");
-    }
-</script>-->
 </body>
 </html>
