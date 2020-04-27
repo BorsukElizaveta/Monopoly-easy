@@ -2,12 +2,13 @@
   "name": "Monopoly-easy",
   "version": "1.0.0",
   "description": "Monopoly-easy",
-  "main": "dist/index.js",
+  "main": "public/server/server.js",
   "scripts": {
     "build": "tsc",
     "prestart": "npm run build",
     "start": "node .",
-    "dev": "ts-node-dev src/server/server.ts",
+    "dev": "concurrently -k \"tsc -p ./src/server -w\" \"tsc -p ./src/client -w\" \"nodemon ./public/server/server.js\"",
+
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,16 +24,18 @@
   "homepage": "https://github.com/BorsukElizaveta/Monopoly-easy#readme",
   "dependencies": {
     "@types/express": "^4.17.6",
+    "@types/jquery": "^3.3.35",
     "@types/node": "^13.13.0",
     "@types/socket.io": "^2.1.4",
     "@types/socket.io-client": "^1.4.32",
     "express": "^4.17.1",
+    "jquery": "^3.5.0",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "typescript": "^3.8.3"
   },
   "devDependencies": {
-    "ts-node-dev": "^1.0.0-pre.44",
-    "tslint": "^6.1.1"
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.3"
   }
 }

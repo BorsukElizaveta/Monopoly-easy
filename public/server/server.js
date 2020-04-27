@@ -1,88 +1,66 @@
-import express from "express"  // Подключаем express
-import path from "path"
-import http from "http"
-import socketIO from "socket.io"
-
-const port: number = 3000
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express")); // Подключаем express
+const path_1 = __importDefault(require("path"));
+const http_1 = __importDefault(require("http"));
+const socket_io_1 = __importDefault(require("socket.io"));
+const port = 3000;
 class App {
-    private server: http.Server
-    private port: number
-    private io: socketIO.Server
-
-    constructor(port: number) {
+    constructor(port) {
         this.port = port;
-
         // Создаем приложение с помощью Express
-        const app = express();
-        app.use(express.static(path.join(__dirname, '../../public/client')));  //путь до статических страниц которые сервер отсылает клиенту
-        app.use('/jquery', express.static(path.join(__dirname, '../../node_modules/jquery/dist')))
-
+        const app = express_1.default();
+        app.use(express_1.default.static(path_1.default.join(__dirname, '../../public/client'))); //путь до статических страниц которые сервер отсылает клиенту
+        app.use('/jquery', express_1.default.static(path_1.default.join(__dirname, '../../node_modules/jquery/dist')));
         // Создаем HTTP-сервер с помощью модуля HTTP, входящего в Node.js.
         // Связываем его с Express
-        this.server = new http.Server(app);
-
+        this.server = new http_1.default.Server(app);
         // Инициализируем Socket.IO так, чтобы им обрабатывались подключения
         // к серверу Express/HTTP
-        this.io = socketIO(this.server);
-
-        this.io.on('connection', (socket: socketIO.Socket) => {
+        this.io = socket_io_1.default(this.server);
+        this.io.on('connection', (socket) => {
             console.log('a user connected : ' + socket.id);
-
             socket.on('disconnect', function () {
                 console.log('socket disconnected : ' + socket.id);
             });
-
             socket.emit("message", "Hello " + socket.id);
-
-            socket.on("newUser", function(username: string){
+            socket.on("newUser", function (username) {
                 socket.broadcast.emit('message', username + ' has just connected to game!');
                 let data = {
                     "name": username,
                     "money": "66 000"
                 };
                 console.log(data);
-                socket.emit("newUser", JSON.stringify( data ));
+                socket.emit("newUser", JSON.stringify(data));
             });
-
             //слушаем сообщения от клиента типа message
-            socket.on("rollDice", function(message: string) {
+            socket.on("rollDice", function (message) {
                 console.log(socket.id + " wants:" + message);
             });
-
-            socket.on("buyCard", function(message: string) {
+            socket.on("buyCard", function (message) {
                 console.log(socket.id + " wants:" + message);
             });
-
-            socket.on("sellCard", function(message: string) {
+            socket.on("sellCard", function (message) {
                 console.log(socket.id + " wants:" + message);
             });
-
-            socket.on("buyHouse", function(message: string) {
+            socket.on("buyHouse", function (message) {
                 console.log(socket.id + " wants:" + message);
             });
-
-            socket.on("sellHouse", function(message: string) {
+            socket.on("sellHouse", function (message) {
                 console.log(socket.id + " wants:" + message);
             });
-        })
+        });
     }
-
-    public Start() {
+    Start() {
         this.server.listen(this.port, () => {
-            console.log( `Server listening on ports ${this.port}.` )
-        })
+            console.log(`Server listening on ports ${this.port}.`);
+        });
     }
 }
-
-new App(port).Start()
-
-
-
-
-
-
-
+new App(port).Start();
 /* ----------------------------------------------------------
 -------------------------------------------------------------
  */
@@ -154,8 +132,3 @@ io.on("connection", function(socket: any) {
 });
 
 */
-
-
-
-
-

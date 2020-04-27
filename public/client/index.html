@@ -8,11 +8,11 @@
 </head>
 <body>
 <div>
-    <button onClick="rollDice()">Roll Dice</button>
-    <button onClick="buyCard()">Buy Card</button>
-    <button onClick="sellCard()">Sell Card</button>
-    <button onClick="buyHouse()">Buy House</button>
-    <button onClick="sellHouse()">Sell House</button>
+    <button onClick="client.rollDice()">Roll Dice</button>
+    <button onClick="client.buyCard()">Buy Card</button>
+    <button onClick="client.sellCard()">Sell Card</button>
+    <button onClick="client.buyHouse()">Buy House</button>
+    <button onClick="client.sellHouse()">Sell House</button>
 </div>
 <div class="players">
     <div class="player1">
@@ -42,7 +42,8 @@
 
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-<script>
+<script src="client.js"></script>
+<!--<script>
     const socket = io("http://localhost:3000");
 
     // Посетителя просят ввести имя пользователя...
@@ -88,6 +89,6 @@
     function sellHouse() {
         socket.emit("sellHouse", "User sellHouse click");
     }
-</script>
+</script>-->
 </body>
 </html>
