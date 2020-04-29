@@ -1,0 +1,12 @@
+.start{
+    padding: 25px;
+    display: block;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+form{
+    margin: 20px;
+}

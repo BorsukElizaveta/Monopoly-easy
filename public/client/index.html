@@ -1,25 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Document</title>
 </head>
 <body>
-<div>
+<main class="start" style="width: 600px; height: 200px">
+    <form>
+        <div class="form-group">
+            <label for="namePlayer">Enter your nickname</label>
+            <input type="text" class="form-control" id="namePlayer" aria-describedby="nameHelp">
+            <small id="nameHelp" class="form-text text-muted">You will use this name in the game</small>
+        </div>
+        <button type="submit" id = "regGame" class="btn btn-primary" onClick="client.regToGame()">Start game</button>
+    </form>
+</main>
+<main class="players" id="players" hidden> <!-- параметр hidden и оно скроется-->
+    <!-- сюда экран ожидания-->
+    <div class="input-group">
+        <input class="form-control width100" id="messageText" placeholder="Enter Chat Message" onkeyup="">
+        <span class="input-group-btn">
+            <button class="btn btn-info">Send</button>
+        </span>
+    </div>
+</main>
+<main class = "butt" hidden>
+    <!-- сюда игровое поле и тд-->
     <button onClick="client.rollDice()">Roll Dice</button>
     <button onClick="client.buyCard()">Buy Card</button>
     <button onClick="client.sellCard()">Sell Card</button>
     <button onClick="client.buyHouse()">Buy House</button>
     <button onClick="client.sellHouse()">Sell House</button>
-</div>
-<div class="players" id="players">
+</main>
 
-</div>
-
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="jquery/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="client.js"></script>
 
 </body>
