@@ -6,6 +6,7 @@
     "sourceMap": false,
     "esModuleInterop": true
   },
+  "files": [],
   "include": [
     "**/*.ts"
   ]

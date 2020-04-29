@@ -8,7 +8,6 @@
     "prestart": "npm run build",
     "start": "node .",
     "dev": "concurrently -k \"tsc -p ./src/server -w\" \"tsc -p ./src/client -w\" \"nodemon ./public/server/server.js\"",
-
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -28,6 +27,7 @@
     "@types/node": "^13.13.0",
     "@types/socket.io": "^2.1.4",
     "@types/socket.io-client": "^1.4.32",
+    "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "jquery": "^3.5.0",
     "socket.io": "^2.3.0",
