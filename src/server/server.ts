@@ -2,13 +2,16 @@ import express from "express"  // Подключаем express
 import path from "path"
 import http from "http"
 import socketIO from "socket.io"
+import Player from "./player";
 
 const port: number = 3000
 
 class App {
+    private MAX_PLAYERS = 2;
     private server: http.Server
     private port: number
     private io: socketIO.Server
+    private players: {[id: string]:Player} = {} //словарь подключенныъ игроков по типу {socket.id: Player { _money: 50000, _name: Nuck}
 
     constructor(port: number) {
         this.port = port;
@@ -17,6 +20,7 @@ class App {
         const app = express();
         app.use(express.static(path.join(__dirname, '../../public/client')));  //путь до статических страниц которые сервер отсылает клиенту
         app.use('/jquery', express.static(path.join(__dirname, '../../node_modules/jquery/dist')))
+        app.use('/bootstrap', express.static(path.join(__dirname, '../../node_modules/bootstrap/dist')))
 
         // Создаем HTTP-сервер с помощью модуля HTTP, входящего в Node.js.
         // Связываем его с Express
@@ -29,22 +33,43 @@ class App {
         this.io.on('connection', (socket: socketIO.Socket) => {
             console.log('a user connected : ' + socket.id);
 
-            socket.on('disconnect', function () {
+            socket.on('disconnect', () => {
                 console.log('socket disconnected : ' + socket.id);
+                if (this.players && this.players[socket.id]) {
+                    delete this.players[socket.id] //удаляет из партии игрока от кого пришел 'disconnected'
+                    console.log("In game " + (Object.keys(this.players).length) + " players");
+                }
+                //TODO надо проработать убирание пользователя если он отвалился
+            });
+
+            socket.on("newUser", (username: string) => {
+                if ((Object.keys(this.players).length) < this.MAX_PLAYERS) {
+                    this.players[socket.id] = new Player(username)
+
+                    //socket.broadcast.emit('newUserReport', this.players[socket.id].getPlayer());
+                    console.log(this.players);
+                    console.log(this.players[socket.id].getPlayer());
+                    console.log("In game " + (Object.keys(this.players).length) + " players");
+
+                    //если набралось максимальное количество игроков, то отсылаем данные всех игроков на клииента для отрисовки и начала игры
+                    if ((Object.keys(this.players).length) == this.MAX_PLAYERS) {
+                        console.log("start game");
+                        let allPlayers = []
+                        for (let value of Object.values(this.players)) {
+                            allPlayers.push(value.getPlayer());
+                        }
+                        //console.log(allPlayers);
+                        this.io.emit('renderStartUser', allPlayers);
+                    }
+                    socket.emit('responseNewUser', "<div class=\"alert alert-success\" role=\"alert\">👍 Great, now we are waiting for friends </div>");
+                }
+                else {
+                    socket.emit('responseNewUser', "<div class=\"alert alert-warning\" role=\"alert\">✋ Sorry but all the players are in the game. Come back another time</div>");
+                }
+                //socket.broadcast.emit('newUserReport', JSON.stringify( data ));
             });
 
             socket.emit("message", "Hello " + socket.id);
-
-            socket.on("newUser", function(username: string){
-                let data = {
-                    "name": username,
-                    "money": "66 000"
-                };
-                socket.broadcast.emit('newUserReport', JSON.stringify( data ));
-                console.log(data);
-                //socket.emit("newUser", JSON.stringify( data ));
-            });
-
             //слушаем сообщения от клиента типа message
             socket.on("rollDice", function(message: string) {
                 console.log(socket.id + " wants:" + message);
