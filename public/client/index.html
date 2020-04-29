@@ -14,7 +14,7 @@
     <title>Monopoly</title>
 </head>
 <body>
-<main class="start" style="width: 600px; height: 200px">
+<main class="start" style="width: 600px; height: 200px;  margin: 20px auto;">
     <form>
         <div class="form-group">
             <label for="namePlayer">Enter your nickname</label>
@@ -35,6 +35,7 @@
 </main>
 
 <main class = "game" hidden>
+    <!-- игровое поле -->
     <div class="field">
         <div class="actions">
             <button  type = button class="buy-house-button" onClick="client.buyHouse()">
@@ -67,12 +68,12 @@
                     <img src="images/logo.svg" alt="logo.svg">
                 </div>
 
-                <div class="space corner bottom-right">
+                <div class="space corner bottom-right" id="cell_1">
                     <div class="container">Старт</div>
                 </div>
 
                 <div class="row horizontal-row bottom-row">
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_10">
                         <div class="container">
                             <div class="color-bar cyan">
                                 <img alt="house" src="images/house/house-icon.svg">
@@ -85,7 +86,7 @@
 
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_9">
                         <div class="container">
                             <div class="color-bar cyan"></div>
                             <div class="name">Варшавское шоссе</div>
@@ -93,14 +94,14 @@
 
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_8">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
 
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_7">
                         <div class="container">
                             <div class="color-bar cyan"></div>
                             <div class="name">Ул.Огарева</div>
@@ -109,20 +110,20 @@
                         </div>
                     </div>
 
-                    <div class="space property">
+                    <div class="space property" id="cell_6">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_5">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
 
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_4">
                         <div class="container">
                             <div class="color-bar brown"></div>
                             <div class="name">Нагатинская ул.</div>
@@ -130,13 +131,13 @@
 
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_3">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_2">
                         <div class="container">
                             <div class="color-bar brown"></div>
                             <div class="name">Житная ул.</div>
@@ -146,10 +147,10 @@
                     </div>
                 </div>
 
-                <div class="space corner bottom-left"></div>
+                <div class="space corner bottom-left" id="cell_11"></div>
 
                 <div class="row vertical-row left-row">
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_20">
                         <div class="container">
                             <div class="color-bar orange"></div>
                             <div class="name">Рублевское шоссе</div>
@@ -157,7 +158,7 @@
 
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_19">
                         <div class="container">
                             <div class="color-bar orange"></div>
                             <div class="name">Рязанский проспект</div>
@@ -165,13 +166,13 @@
 
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_18">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_17">
                         <div class="container">
                             <div class="color-bar orange"></div>
                             <div class="name">Ул. Вавилова</div>
@@ -179,13 +180,13 @@
 
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_16">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_15">
                         <div class="container">
                             <div class="color-bar purple"></div>
                             <div class="name">Ростовская наб.</div>
@@ -193,7 +194,7 @@
 
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_14">
                         <div class="container">
                             <div class="color-bar purple"></div>
                             <div class="name">Ул.Полянка</div>
@@ -202,13 +203,13 @@
                         </div>
                     </div>
 
-                    <div class="space property ">
+                    <div class="space property" id="cell_13">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_12">
                         <div class="container">
                             <div class="color-bar purple"></div>
                             <div class="name">Ул.Стретенка</div>
@@ -218,10 +219,10 @@
                     </div>
                 </div>
 
-                <div class="space corner top-left"></div>
+                <div class="space corner top-left" id="cell_21"></div>
 
                 <div class="row horizontal-row top-row">
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_22">
                         <div class="container">
                             <div class="color-bar red"></div>
                             <div class="name">Пушкинская ул.</div>
@@ -229,13 +230,13 @@
 
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_23">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_24">
                         <div class="container">
                             <div class="color-bar red"></div>
                             <div class="name">Ул Тверская</div>
@@ -243,7 +244,7 @@
 
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_25">
                         <div class="container">
                             <div class="color-bar red"></div>
                             <div class="name">Площадь Маяковского</div>
@@ -251,13 +252,13 @@
 
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_26">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_27">
                         <div class="container">
                             <div class="color-bar yellow"></div>
                             <div class="name">Грузинский вал</div>
@@ -266,7 +267,7 @@
                         </div>
                     </div>
 
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_28">
                         <div class="container">
                             <div class="color-bar yellow"></div>
                             <div class="name">Новинский бульвар</div>
@@ -274,13 +275,13 @@
 
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_29">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_30">
                         <div class="container">
                             <div class="color-bar yellow"></div>
                             <div class="name">Смоленская площад</div>
@@ -290,10 +291,10 @@
                     </div>
                 </div>
 
-                <div class="space corner top-right"></div>
+                <div class="space corner top-right" id="cell_31"></div>
 
                 <div class="row vertical-row right-row">
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_32">
                         <div class="container">
                             <div class="color-bar green"></div>
                             <div class="name">Гоголевский бульва</div>
@@ -302,7 +303,7 @@
                         </div>
                     </div>
 
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_33">
                         <div class="container">
                             <div class="color-bar green"></div>
                             <div class="name">л.Щусева</div>
@@ -310,13 +311,13 @@
 
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_34">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_35">
                         <div class="container">
                             <div class="color-bar green"></div>
                             <div class="name">Кутузовский проспек</div>
@@ -324,19 +325,19 @@
 
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_36">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_37">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_38">
                         <div class="container">
                             <div class="color-bar blue"></div>
                             <div class="name">ул. маллая бронная</div>
@@ -344,13 +345,13 @@
 
                         </div>
                     </div>
-                    <div class="space property">
+                    <div class="space property" id="cell_39">
                         <div class="container">
                             <div class="color-bar no-border"></div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce">
+                    <div class="space property commerce" id="cell_40">
                         <div class="container">
                             <div class="color-bar blue"></div>
                             <div class="name">ул. Арбат</div>
@@ -363,15 +364,20 @@
         </div>
 
         <div class="players" id="players">
+            <!-- сюда игроки добавляются -->
 
-        </div>
-    </div>
-</main>
+            <!--   <div class="player">"
+                        <div class="player-name">" + pl.name + "</div>"
+                        <div class="player-money"><span>$</span><span>" + pl.money + "</span></div>" +
+                   </div>-->
+           </div>
+       </div>
+   </main>
 
-<script src="jquery/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="client.js"></script>
+   <script src="jquery/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+   <script src="client.js"></script>
 
-</body>
-</html>
+   </body>
+   </html>
