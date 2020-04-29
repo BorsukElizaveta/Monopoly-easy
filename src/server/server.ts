@@ -72,23 +72,23 @@ class App {
             socket.emit("message", "Hello " + socket.id);
             //слушаем сообщения от клиента типа message
             socket.on("rollDice", function(message: string) {
-                console.log(socket.id + " wants:" + message);
+                console.log(socket.id + " wants: " + message);
             });
 
             socket.on("buyCard", function(message: string) {
-                console.log(socket.id + " wants:" + message);
+                console.log(socket.id + " wants: " + message);
             });
 
             socket.on("sellCard", function(message: string) {
-                console.log(socket.id + " wants:" + message);
+                console.log(socket.id + " wants: " + message);
             });
 
             socket.on("buyHouse", function(message: string) {
-                console.log(socket.id + " wants:" + message);
+                console.log(socket.id + " wants: " + message);
             });
 
             socket.on("sellHouse", function(message: string) {
-                console.log(socket.id + " wants:" + message);
+                console.log(socket.id + " wants: " + message);
             });
         })
     }

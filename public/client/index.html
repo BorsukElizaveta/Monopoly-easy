@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" id ="style"> <!--при старте заменится на стили для монополии-->
+
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic,cyrillic-ext"
+            rel="stylesheet"
+    />
+    <title>Monopoly</title>
 </head>
 <body>
 <main class="start" style="width: 600px; height: 200px">
@@ -20,15 +24,7 @@
         <button type="submit" id = "regGame" class="btn btn-primary" onClick="client.regToGame()">Start game</button>
     </form>
 </main>
-<main class="players" id="players" hidden> <!-- параметр hidden и оно скроется-->
-    <!-- сюда экран ожидания-->
-    <div class="input-group">
-        <input class="form-control width100" id="messageText" placeholder="Enter Chat Message" onkeyup="">
-        <span class="input-group-btn">
-            <button class="btn btn-info">Send</button>
-        </span>
-    </div>
-</main>
+
 <main class = "butt" hidden>
     <!-- сюда игровое поле и тд-->
     <button onClick="client.rollDice()">Roll Dice</button>
@@ -36,6 +32,340 @@
     <button onClick="client.sellCard()">Sell Card</button>
     <button onClick="client.buyHouse()">Buy House</button>
     <button onClick="client.sellHouse()">Sell House</button>
+</main>
+
+<main class = "game" hidden>
+    <div class="field">
+        <div class="actions">
+            <button  type = button class="buy-house-button" onClick="client.buyHouse()">
+                <img alt="buy-house" src="images/house/buy-house.svg">
+            </button>
+
+            <button  type = button class="sale-house-button" onClick="client.sellHouse()">
+                <img alt="sale-house" src="images/house/sale-house.svg">
+            </button>
+
+            <button  type = button class="sale-card-button" onClick="client.sellCard()">
+                <img alt="sale-card" src="images/card/sale-card.svg">
+            </button>
+
+            <button  type = button class="buy-card-button" onClick="client.buyCard()">
+                <img alt="buy-sale-card" src="images/card/sale-card.svg">
+            </button>
+
+            <button  type = button class="throw-dice-button">Бросить кубики</button>
+
+            <div class="dice">
+                <img id = "dice1" alt="dice1" src="images/dice/dice1.svg">
+                <img id = "dice2" alt="dice2" src="images/dice/dice1.svg">
+            </div>
+        </div>
+
+        <div class="map">
+            <div class="board">
+                <div class="space center">
+                    <img src="images/logo.svg" alt="logo.svg">
+                </div>
+
+                <div class="space corner bottom-right">
+                    <div class="container">Старт</div>
+                </div>
+
+                <div class="row horizontal-row bottom-row">
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar cyan">
+                                <img alt="house" src="images/house/house-icon.svg">
+                                <img alt="house" src="images/house/house-icon.svg">
+                                <img alt="house" src="images/house/house-icon.svg">
+                                <img alt="house" src="images/house/house-icon.svg">
+                            </div>
+                            <div class="name">Парковая ул.</div>
+                            <div class="price">$120</div>
+
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar cyan"></div>
+                            <div class="name">Варшавское шоссе</div>
+                            <div class="price">$100</div>
+
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar cyan"></div>
+                            <div class="name">Ул.Огарева</div>
+                            <div class="price">$100</div>
+
+                        </div>
+                    </div>
+
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar brown"></div>
+                            <div class="name">Нагатинская ул.</div>
+                            <div class="price">$60</div>
+
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar brown"></div>
+                            <div class="name">Житная ул.</div>
+                            <div class="price">$60</div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space corner bottom-left"></div>
+
+                <div class="row vertical-row left-row">
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar orange"></div>
+                            <div class="name">Рублевское шоссе</div>
+                            <div class="price">$200</div>
+
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar orange"></div>
+                            <div class="name">Рязанский проспект</div>
+                            <div class="price">$180</div>
+
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar orange"></div>
+                            <div class="name">Ул. Вавилова</div>
+                            <div class="price">$180</div>
+
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar purple"></div>
+                            <div class="name">Ростовская наб.</div>
+                            <div class="price">$160</div>
+
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar purple"></div>
+                            <div class="name">Ул.Полянка</div>
+                            <div class="price">$140</div>
+
+                        </div>
+                    </div>
+
+                    <div class="space property ">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar purple"></div>
+                            <div class="name">Ул.Стретенка</div>
+                            <div class="price">$140</div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space corner top-left"></div>
+
+                <div class="row horizontal-row top-row">
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar red"></div>
+                            <div class="name">Пушкинская ул.</div>
+                            <div class="price">$220</div>
+
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar red"></div>
+                            <div class="name">Ул Тверская</div>
+                            <div class="price">$220</div>
+
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar red"></div>
+                            <div class="name">Площадь Маяковского</div>
+                            <div class="price">$240</div>
+
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar yellow"></div>
+                            <div class="name">Грузинский вал</div>
+                            <div class="price">$260</div>
+
+                        </div>
+                    </div>
+
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar yellow"></div>
+                            <div class="name">Новинский бульвар</div>
+                            <div class="price">$260</div>
+
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar yellow"></div>
+                            <div class="name">Смоленская площад</div>
+                            <div class="price">$280</div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space corner top-right"></div>
+
+                <div class="row vertical-row right-row">
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar green"></div>
+                            <div class="name">Гоголевский бульва</div>
+                            <div class="price">$300</div>
+
+                        </div>
+                    </div>
+
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar green"></div>
+                            <div class="name">л.Щусева</div>
+                            <div class="price">$300</div>
+
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar green"></div>
+                            <div class="name">Кутузовский проспек</div>
+                            <div class="price">$320</div>
+
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar blue"></div>
+                            <div class="name">ул. маллая бронная</div>
+                            <div class="price">$350</div>
+
+                        </div>
+                    </div>
+                    <div class="space property">
+                        <div class="container">
+                            <div class="color-bar no-border"></div>
+                            <div class="name">Отдых</div>
+                        </div>
+                    </div>
+                    <div class="space property commerce">
+                        <div class="container">
+                            <div class="color-bar blue"></div>
+                            <div class="name">ул. Арбат</div>
+                            <div class="price">$400</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="players" id="players">
+
+        </div>
+    </div>
 </main>
 
 <script src="jquery/jquery.min.js"></script>
