@@ -1,14 +1,33 @@
 type PlayerState = {
     name: string;
     money: number;
+    position: number;
+}
+
+type GameField = {
+    name: string;
+    type: "commerceCell" | "restCell";
+    price?: 60 | 100 | 120 | 140 | 160 | 180 | 200 | 220 | 240 | 260 | 280 | 300 | 320 | 350 | 400;
+    tax?: number[];
+    buildings?: 0 | 1 | 2 | 3 | 4 | 5;
+    owner?: string;
+};
+
+type GameState = {
+    id: number;
+    whoMove: string;
+    maxPlayers: number;
+    gameStatus: number;
 }
 
 class Client {
     private socket: SocketIOClient.Socket
     private player: PlayerState
+    private id: string
 
     constructor() {
         this.socket = io();
+        this.id = this.socket.id;
 
         // Посетителя просят ввести имя пользователя...
         //let username = prompt('What\'s your username?');
@@ -31,11 +50,13 @@ class Client {
             //отрисовывает подключенного игрока
             //this.player = data;
             document.getElementById('style').setAttribute('href', 'styles.css');
+            let num = 0;
             for (let pl of data){
-                $("#players").append("<div class=\"player\">\n" +
+                $("#players").append("<div class=\"player\" id='player" + num +"'>\n" +
                     "        <div class=\"player-name\">" + pl.name + "</div>\n" +
                     "        <div class=\"player-money\"><span>$</span><span>" + pl.money + "</span></div>\n" +
                     "    </div>");
+                num++;
             }
             //переключем экраны
             $(".start").attr('hidden','hidden');

@@ -1,14 +1,12 @@
-type PlayerState = {
-    name: string;
-    money: number;
-}
-
 export default class Player {
-    private _name: string
+    private readonly _name: string
     private _money: number = 50000
+    private _position: number;
+
 
     constructor(name: string) {
         this._name = name;
+        this._position = 0;
     }
 
     public getMoney():number {
