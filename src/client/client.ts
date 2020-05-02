@@ -2,6 +2,7 @@ type PlayerState = {
     name: string;
     money: number;
     position: number;
+    colour: "Orange" | "Blue" | "Pirple" | "Green" ;
 }
 
 type GameField = {
@@ -48,24 +49,35 @@ class Client {
         ////отрисовывает всех игроков на старте
         this.socket.on('renderStartUser', (data: PlayerState[]) => {
             //отрисовывает подключенного игрока
-            //this.player = data;
             document.getElementById('style').setAttribute('href', 'styles.css');
             let num = 0;
             for (let pl of data){
                 $("#players").append("<div class=\"player\" id='player" + num +"'>\n" +
                     "        <div class=\"player-name\">" + pl.name + "</div>\n" +
-                    "        <div class=\"player-money\"><span>$</span><span>" + pl.money + "</span></div>\n" +
+                    "        <div class=\"player-money\"><span>$</span><span id=\"money\">" + pl.money + "</span></div>\n" +
                     "    </div>");
                 num++;
             }
             //переключем экраны
             $(".start").attr('hidden','hidden');
-            //$(".butt").removeAttr('hidden');
             $(".game").removeAttr('hidden');
-            $("#players").removeAttr('hidden');
         });
 
-        // уведомления о успешной реге или отказе
+        //обновление данных экранов пользователей
+        this.socket.on("updPlayer", (data: PlayerState[]) => {
+            let num = 0;
+            for (let pl of data){
+                $("div#player" + num + " div.player-name").text(pl.name);
+                $("div#player" + num + " div.player-money span#money").text(pl.money);
+                //TODO сюда вставку для удаления фишек с прошлой позикии и постановкой на новую
+                num++;
+            }
+        })
+        this.socket.on("setFlag", (position: number, colour: string) => {
+            $("div#cell_"+position+" div.flag").append("<img alt=\"house\" src=\"images/flag" + colour + ".svg\">");
+        })
+
+        // уведомления о статусе регистрации
         this.socket.on('responseNewUser', function(message: string) {
             $(".start").append(message);
         })
@@ -102,7 +114,7 @@ class Client {
 
     //нажал на кнопку бросок хода
     public rollDice() {
-        this.socket.emit("rollDice", this.id);
+        this.socket.emit("rollDice", this.socket.id);
         //заготовка на сокрытие экранов
         $("#players").removeAttr('hidden');
         $('.butt').attr('hidden','hidden');
@@ -110,11 +122,11 @@ class Client {
     }
 
     public endMove() {
-        this.socket.emit("endMove", this.id);
+        this.socket.emit("endMove", this.socket.id);
     }
 
     public buyCard() {
-        this.socket.emit("buyCard", "User buyCard click");
+        this.socket.emit("buyCard", this.socket.id);
     }
 
     public sellCard() {

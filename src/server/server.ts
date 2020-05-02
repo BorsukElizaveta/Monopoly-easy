@@ -14,6 +14,7 @@ class App {
     private io: socketIO.Server
     private players: { [id: string]: Player } = {} //словарь подключенныъ игроков по типу {socket.id: Player { _money: 50000, _name: Nuck}
     private games: { [id: number]: MonopolyGame } = {}
+    private colour = ["Orange", "Blue" , "Pirple" , "Green" ];
 
     constructor(port: number) {
         this.port = port;
@@ -47,7 +48,7 @@ class App {
 
             socket.on("newUser", (username: string) => {
                 if ((Object.keys(this.players).length) < this.MAX_PLAYERS) {
-                    this.players[socket.id] = new Player(username)
+                    this.players[socket.id] = new Player(username, this.colour[(Object.keys(this.players).length)])
 
                     //socket.broadcast.emit('newUserReport', this.players[socket.id].getPlayer());
                     //console.log(this.players);
@@ -57,16 +58,13 @@ class App {
                     //если набралось максимальное количество игроков, то отсылаем данные всех игроков на клииента для отрисовки и начала игры
                     if ((Object.keys(this.players).length) == this.MAX_PLAYERS) {
                         console.log("start game");
-                        let allPlayers = []
-                        for (let value of Object.values(this.players)) {
-                            allPlayers.push(value.getPlayer());
-                        }
+
                         //console.log(allPlayers);
-                        this.io.emit('renderStartUser', allPlayers);
 
                         //TODO допилить создание нескольких сессий
                         //создаем игру
                         this.games[0] = new MonopolyGame(0, this.MAX_PLAYERS, this.players);
+                        this.io.emit('renderStartUser', this.games[0].getPlayersData()); //создаем карточки пользователя
                     }
                     socket.emit('responseNewUser', "<div class=\"alert alert-success\" role=\"alert\">👍 Great, now we are waiting for friends </div>");
                     console.log("Game waiting " + (Object.keys(this.players).length) + " players");
@@ -89,8 +87,9 @@ class App {
                         let ds2 = this.getRandomIntInclusive(1,6); //значение 2 кубика
                         this.games[0].move(ds1+ds2); //передвигаем фишку
                         console.log(ds1 + " " + ds2);
-                        socket.emit("updDice", ds1, ds2); //данные клиент для отрисовки кубиков
-                        //TODO ответ сервера для обновления данных пользователей, деньги и тд
+                        this.io.emit("updDice", ds1, ds2); //данные клиент для отрисовки кубиков
+                        this.io.emit("updPlayer",this.games[0].getPlayersData()); //обновленние данных экрана пользователя
+                        //TODO ответ сервера для обновления позиции фишки
                     }
                     else {
                         console.log(socket.id + " game wait roll, but not this player")
@@ -118,8 +117,10 @@ class App {
 
             })
 
-            socket.on("buyCard", function (message: string) {
-                console.log(socket.id + " wants: " + message);
+            socket.on("buyCard", (id: string) => {
+                console.log("server: buy " + id);
+                this.games[0].buyCard(id, this.io);
+                this.io.emit("updPlayer",this.games[0].getPlayersData()); //обновленние данных экрана пользователя
             });
 
             socket.on("sellCard", function (message: string) {
