@@ -12,7 +12,7 @@ class App {
     private server: http.Server
     private port: number
     private io: socketIO.Server
-    private players: {[id: string]:Player} = {} //словарь подключенныъ игроков по типу {socket.id: Player { _money: 50000, _name: Nuck}
+    private players: { [id: string]: Player } = {} //словарь подключенныъ игроков по типу {socket.id: Player { _money: 50000, _name: Nuck}
     private games: { [id: number]: MonopolyGame } = {}
 
     constructor(port: number) {
@@ -70,8 +70,7 @@ class App {
                     }
                     socket.emit('responseNewUser', "<div class=\"alert alert-success\" role=\"alert\">👍 Great, now we are waiting for friends </div>");
                     console.log("Game waiting " + (Object.keys(this.players).length) + " players");
-                }
-                else {
+                } else {
                     socket.emit('responseNewUser', "<div class=\"alert alert-warning\" role=\"alert\">✋ Sorry but all the players are in the game. Come back another time</div>");
                 }
                 //socket.broadcast.emit('newUserReport', JSON.stringify( data ));
@@ -80,23 +79,39 @@ class App {
             //socket.emit("message", "Hello " + socket.id); //даст алерт с id
 
             //слушаем сообщения от клиента типа message
-            socket.on("rollDice", function(message: string) {
+            // нажатие броска хода
+            socket.on("rollDice", (id: string) => {
+                let stateGame = this.games[0].gameState();
+                if (stateGame.gameStatus == 0) {
+                    if (stateGame.whoMove == socket.id) {
+                        console.log(socket.id + " game wait roll, move this player");
+                        let ds1 = this.getRandomIntInclusive(1,6); //значение 1 кубика
+                        let ds2 = this.getRandomIntInclusive(1,6); //значение 2 кубика
+                        this.games[0].move(ds1+ds2); //передвигаем фишку
+                        console.log(ds1 + " " + ds2);
+                        socket.emit("updDice", ds1, ds2);
+                    }
+                    else {
+                        console.log(socket.id + " game wait roll, but not this player")
+                    }
+                } else {
+                    console.log(socket.id + " not move, wait");
+                }
+            });
+
+            socket.on("buyCard", function (message: string) {
                 console.log(socket.id + " wants: " + message);
             });
 
-            socket.on("buyCard", function(message: string) {
+            socket.on("sellCard", function (message: string) {
                 console.log(socket.id + " wants: " + message);
             });
 
-            socket.on("sellCard", function(message: string) {
+            socket.on("buyHouse", function (message: string) {
                 console.log(socket.id + " wants: " + message);
             });
 
-            socket.on("buyHouse", function(message: string) {
-                console.log(socket.id + " wants: " + message);
-            });
-
-            socket.on("sellHouse", function(message: string) {
+            socket.on("sellHouse", function (message: string) {
                 console.log(socket.id + " wants: " + message);
             });
         })
@@ -104,17 +119,18 @@ class App {
 
     public Start() {
         this.server.listen(this.port, () => {
-            console.log( `Server listening on ports ${this.port}.` )
+            console.log(`Server listening on ports ${this.port}.`)
         })
+    }
+
+    public getRandomIntInclusive(min: number, max: number) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
     }
 }
 
 new App(port).Start()
-
-
-
-
-
 
 
 /* ----------------------------------------------------------

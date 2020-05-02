@@ -65,18 +65,27 @@ class Client {
             $("#players").removeAttr('hidden');
         });
 
+        // уведомления о успешной реге или отказе
         this.socket.on('responseNewUser', function(message: string) {
             $(".start").append(message);
         })
 
+        // сообщает что-то от сервера
         this.socket.on('sendUser', function(message: any) {
-            alert('The server has a message for you: ' + message); // сообщает что-то от сервера
+            alert('The server has a message for you: ' + message);
         })
 
         //Слушает текстовые сообщения от сервера
         this.socket.on('message', function(message: any) {
             alert('The server has a message for you: ' + message); // сообщает что игрок подключился
         });
+
+        this.socket.on("updDice", (ds1: number, ds2: number) => {
+
+            $('#dice1').attr('src', 'images/dice/dice' + ds1 +'.svg')
+            $('#dice2').attr('src', 'images/dice/dice' + ds2 +'.svg')
+
+        })
 
     }
 
@@ -91,8 +100,9 @@ class Client {
 
     }
 
+    //нажал на кнопку бросок хода
     public rollDice() {
-        this.socket.emit("rollDice", "User roll Dice");
+        this.socket.emit("rollDice", this.id);
         //заготовка на сокрытие экранов
         $("#players").removeAttr('hidden');
         $('.butt').attr('hidden','hidden');
@@ -122,58 +132,5 @@ $('form').submit(function (e) {
     e.preventDefault();
 });
 
-
-
-
-
-
-let diceIMG = [
-    'images/dice/dice1.svg',
-    'images/dice/dice2.svg',
-    'images/dice/dice3.svg',
-    'images/dice/dice4.svg',
-    'images/dice/dice5.svg',
-    'images/dice/dice6.svg',
-];
-
-
-
-function getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
-}
-
-
-
-let rollButton = document.querySelector('.throw-dice-button');
-/*rollButton.addEventListener ( 'click', roll, );
-
-function roll(){
-	let dice = document.querySelector('.dice');
-	//dice.innerHTML = '';
-
-	let dice1 = document.createElement("IMG");
-	let dice2 = document.createElement("IMG");
-
-	let d1 = getRandomIntInclusive(1,5);
-	let d2 = getRandomIntInclusive(1,5);
-
-	dice1.src = diceIMG[d1];
-	dice2.src = diceIMG[d2];;
-
-
-	dice.appendChild(dice1);
-	dice.appendChild(dice2);
-}*/
-
-rollButton.addEventListener ( 'click', function roll() {
-    let img=["dice1", "dice2"];
-
-    img.forEach(function(elementId){
-        // @ts-ignore
-        document.getElementById(elementId).src = diceIMG[getRandomIntInclusive(1,5)];
-    });
-}, );
 
 //компиляция с параметрами tsc -p .
