@@ -89,15 +89,34 @@ class App {
                         let ds2 = this.getRandomIntInclusive(1,6); //значение 2 кубика
                         this.games[0].move(ds1+ds2); //передвигаем фишку
                         console.log(ds1 + " " + ds2);
-                        socket.emit("updDice", ds1, ds2);
+                        socket.emit("updDice", ds1, ds2); //данные клиент для отрисовки кубиков
+                        //TODO ответ сервера для обновления данных пользователей, деньги и тд
                     }
                     else {
                         console.log(socket.id + " game wait roll, but not this player")
                     }
                 } else {
-                    console.log(socket.id + " not move, wait");
+                    console.log("Game not wait rollDice, someone need endMove");
                 }
             });
+
+            socket.on("endMove", (id: string) => {
+                let stateGame = this.games[0].gameState();
+                if (stateGame.gameStatus == 1) {
+                    if (stateGame.whoMove == socket.id) {
+                        console.log(socket.id + " move ends this player");
+                        this.games[0].endMove();
+                        //TODO добавить ответ сервера чтоб блокировать кнопки на клиенте
+                    }
+                    else {
+                        console.log(socket.id + " game wait endMove, but not this player")
+                    }
+                }
+                else {
+                    console.log("Game not wait endMove, someone need roll Dice");
+                }
+
+            })
 
             socket.on("buyCard", function (message: string) {
                 console.log(socket.id + " wants: " + message);

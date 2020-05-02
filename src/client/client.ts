@@ -109,6 +109,10 @@ class Client {
         console.log("roll");
     }
 
+    public endMove() {
+        this.socket.emit("endMove", this.id);
+    }
+
     public buyCard() {
         this.socket.emit("buyCard", "User buyCard click");
     }

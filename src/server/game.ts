@@ -30,7 +30,33 @@ export default class MonopolyGame
 
     public move(num: number){
         this._players[this._whoMove].newPosition(num);
-        //TODO это нужно в хакрывваюзую функцию хода
+        this._gameStatus = 1; //меняем статус на ожидание завершения хода
+        this._gameState.gameStatus = this._gameStatus;
+        //TODO это нужно в закрывваюзую функцию хода
+        // if (this._whoMove == Object.keys(this._players)[this._maxPlayers-1]){
+        //     console.log("last player");
+        //     this._whoMove = Object.keys(this._players)[0];
+        //     this._gameState.whoMove = this._whoMove;
+        // }
+        // else {
+        //     for (let i = 0; i < this._maxPlayers-1; i++) {
+        //         console.log(i);
+        //         if (this._whoMove == Object.keys(this._players)[i]) {
+        //             console.log(Object.keys(this._players));
+        //             this._whoMove = Object.keys(this._players)[++i]; //обновляем ходящего
+        //             this._gameState.whoMove = this._whoMove; //обновляем данные для вызачи
+        //             console.log("next " + this._whoMove);
+        //             break;
+        //         }
+        //     }
+        //}
+    }
+
+    public endMove() {
+        this._gameStatus = 0; //меняем статус на нового хода
+        this._gameState.gameStatus = this._gameStatus;
+        console.log("move end");
+
         if (this._whoMove == Object.keys(this._players)[this._maxPlayers-1]){
             console.log("last player");
             this._whoMove = Object.keys(this._players)[0];
@@ -43,11 +69,11 @@ export default class MonopolyGame
                     console.log(Object.keys(this._players));
                     this._whoMove = Object.keys(this._players)[++i]; //обновляем ходящего
                     this._gameState.whoMove = this._whoMove; //обновляем данные для вызачи
-                    console.log("next " + this._whoMove);
+                    console.log("next move " + this._whoMove);
                     break;
                 }
             }
-        }
+    }
     }
 
     //возвращает статус игры
