@@ -38,6 +38,7 @@ export default class MonopolyGame {
         this._gameStatus = 1; //меняем статус на ожидание завершения хода
         this._gameState.gameStatus = this._gameStatus;
 
+<<<<<<< HEAD
         //проверяем что если встали на купленную ячеку нужно перевести деньги
         let id_cell = this._players[this._whoMove].getPosition();
         if (this._fields[id_cell].type == "commerceCell") {
@@ -47,6 +48,9 @@ export default class MonopolyGame {
                 this._players[this._fields[id_cell].owner].setMoney(this._players[this._whoMove].getMoney() + cost);
             }
         }
+=======
+
+>>>>>>> master
     }
 
     public endMove() {
