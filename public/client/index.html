@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" id ="style"> <!--при старте заменится на стили для монополии-->
-
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" id="style">
+    <!--при старте заменится на стили для монополии-->
+    <!--<link rel="stylesheet" href="styles.css" id ="style">-->
     <link
             href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap&subset=cyrillic,cyrillic-ext"
             rel="stylesheet"
@@ -21,36 +22,38 @@
             <input type="text" class="form-control" id="namePlayer" aria-describedby="nameHelp">
             <small id="nameHelp" class="form-text text-muted">You will use this name in the game</small>
         </div>
-        <button type="submit" id = "regGame" class="btn btn-primary" onClick="client.regToGame()">Start game</button>
+        <button type="submit" id="regGame" class="btn btn-primary" onClick="client.regToGame()">Start game</button>
     </form>
 </main>
 
-<main class = "game" hidden>
+<main class="game"> <!--hidden-->
     <!-- игровое поле -->
     <div class="field">
         <div class="actions">
-            <button  type = button class="buy-house-button" onClick="client.buyHouse()">
+            <button type=button class="buy-house-button" onClick="client.buyHouse()">
                 <img alt="buy-house" src="images/house/buy-house.svg">
             </button>
 
-            <button  type = button class="sale-house-button" onClick="client.sellHouse()">
+            <button type=button class="sale-house-button" onClick="client.sellHouse()">
                 <img alt="sale-house" src="images/house/sale-house.svg">
             </button>
 
-            <button  type = button class="sale-card-button" onClick="client.sellCard()">
+            <button type=button class="sale-card-button" onClick="client.sellCard()">
                 <img alt="sale-card" src="images/card/sale-card.svg">
             </button>
 
-            <button  type = button class="buy-card-button" onClick="client.buyCard()">
+            <button type=button class="buy-card-button" onClick="client.buyCard()">
                 <img alt="buy-sale-card" src="images/card/buy_card.svg">
             </button>
 
-            <button  type = button class="throw-dice-button" id = "diceBTN" onClick="client.rollDice()">Бросить кубики</button>
-            <button  type = button class="throw-dice-button" id = "endMoveBtn" onclick="client.endMove()">Закончить ход</button>
+            <button type=button class="throw-dice-button" id="diceBTN" onClick="client.rollDice()">Бросить кубики
+            </button>
+            <button type=button class="throw-dice-button" id="endMoveBtn" onclick="client.endMove()">Закончить ход
+            </button>
 
             <div class="dice">
-                <img id = "dice1" alt="dice1" src="images/dice/dice1.svg">
-                <img id = "dice2" alt="dice2" src="images/dice/dice1.svg">
+                <img id="dice1" alt="dice1" src="images/dice/dice1.svg">
+                <img id="dice2" alt="dice2" src="images/dice/dice1.svg">
             </div>
         </div>
 
@@ -60,12 +63,19 @@
                     <img src="images/logo.svg" alt="logo.svg">
                 </div>
 
-                <div class="space corner bottom-right" id="cell_0">
-                    <div class="container">Старт</div>
+                <div class="space corner bottom-right">
+                    <div class="container" id="cell_0">
+                        <div class="color-bar no-border chip">
+                            <img alt="house" src="images/house/house-icon.svg">
+                            <img alt="house" src="images/house/house-icon.svg">
+                        </div>
+                        <div>Старт</div>
+                    </div>
+
                 </div>
 
                 <div class="row horizontal-row bottom-row">
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_9">
                             <div class="color-bar cyan">
                                 <img alt="house" src="images/house/house-icon.svg">
@@ -74,268 +84,380 @@
                                 <img alt="house" src="images/house/house-icon.svg">
                             </div>
                             <div class="name">Парковая ул.</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$120</div>
                             <div class="flag"></div>
 
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_8">
                             <div class="color-bar cyan"></div>
                             <div class="name">Варшавское шоссе</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$100</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_7">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
 
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_6">
                             <div class="color-bar cyan"></div>
                             <div class="name">Ул.Огарева</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$100</div>
                             <div class="flag"></div>
 
                         </div>
                     </div>
 
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_5">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_4">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
 
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_3">
                             <div class="color-bar brown"></div>
                             <div class="name">Нагатинская ул.</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$60</div>
                             <div class="flag"></div>
 
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_2">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_1">
                             <div class="color-bar brown"></div>
                             <div class="name">Житная ул.</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$60</div>
                             <div class="flag"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="space corner bottom-left" id="cell_10"></div>
+                <div class="space corner bottom-left">
+                    <div class="container" id="cell_10">
+                        <div class="color-bar no-border chip">
+
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row vertical-row left-row">
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_19">
                             <div class="color-bar orange"></div>
                             <div class="name">Рублевское шоссе</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$200</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_18">
                             <div class="color-bar orange"></div>
                             <div class="name">Рязанский проспект</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$180</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_17">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_16">
                             <div class="color-bar orange"></div>
                             <div class="name">Ул. Вавилова</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$180</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_15">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_14">
                             <div class="color-bar purple"></div>
                             <div class="name">Ростовская наб.</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$160</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_13">
                             <div class="color-bar purple"></div>
                             <div class="name">Ул.Полянка</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$140</div>
                             <div class="flag"></div>
                         </div>
                     </div>
 
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_12">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_11">
                             <div class="color-bar purple"></div>
                             <div class="name">Ул.Стретенка</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$140</div>
                             <div class="flag"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="space corner top-left" id="cell_20"></div>
+                <div class="space corner top-left" >
+                    <div class="container" id="cell_20">
+                    <div class="color-bar no-border chip">
+
+                    </div>
+                    </div>
+                </div>
 
                 <div class="row horizontal-row top-row">
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_21">
                             <div class="color-bar red"></div>
                             <div class="name">Пушкинская ул.</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$220</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_22">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_23">
                             <div class="color-bar red"></div>
                             <div class="name">Ул Тверская</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$220</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_24">
                             <div class="color-bar red"></div>
                             <div class="name">Площадь Маяковского</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$240</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_25">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_26">
                             <div class="color-bar yellow"></div>
                             <div class="name">Грузинский вал</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$260</div>
                             <div class="flag"></div>
                         </div>
                     </div>
 
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_27">
                             <div class="color-bar yellow"></div>
                             <div class="name">Новинский бульвар</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$260</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_28">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_29">
                             <div class="color-bar yellow"></div>
                             <div class="name">Смоленская площадь</div>
+                            <div class="color-bar no-border chip">
+
+                            </div>
                             <div class="price">$280</div>
                             <div class="flag"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="space corner top-right" id="cell_30"></div>
+                <div class="space corner top-right">
+                    <div class="container" id="cell_30">
+                    <div class="color-bar no-border chip">
+                    </div>
+                    </div>
+                </div>
 
                 <div class="row vertical-row right-row">
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_31">
                             <div class="color-bar green"></div>
                             <div class="name">Гоголевский бульвар</div>
+                            <div class="color-bar no-border chip">
+                            </div>
                             <div class="price">$300</div>
                             <div class="flag"></div>
                         </div>
                     </div>
 
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_32">
                             <div class="color-bar green"></div>
                             <div class="name">ул.Щусева</div>
+                            <div class="color-bar no-border chip">
+                            </div>
                             <div class="price">$300</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_33">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_34">
                             <div class="color-bar green"></div>
                             <div class="name">Кутузовский проспект</div>
+                            <div class="color-bar no-border chip">
+                        </div>
                             <div class="price">$320</div>
                             <div class="flag"></div>
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_35">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property" >
+                    <div class="space property">
                         <div class="container" id="cell_36">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
-                    <div class="space property commerce" >
+                    <div class="space property commerce">
                         <div class="container" id="cell_37">
                             <div class="color-bar blue"></div>
                             <div class="name">ул. маллая бронная</div>
+                            <div class="color-bar no-border chip">
+                            </div>
                             <div class="price">$350</div>
                             <div class="flag"></div>
                         </div>
@@ -343,6 +465,8 @@
                     <div class="space property">
                         <div class="container" id="cell_38">
                             <div class="color-bar no-border"></div>
+                            <div class="color-bar no-border chip">
+                            </div>
                             <div class="name">Отдых</div>
                         </div>
                     </div>
@@ -350,6 +474,8 @@
                         <div class="container" id="cell_39">
                             <div class="color-bar blue"></div>
                             <div class="name">ул. Арбат</div>
+                            <div class="color-bar no-border chip">
+                            </div>
                             <div class="price">$400</div>
                             <div class="flag"></div>
                         </div>
@@ -365,14 +491,14 @@
                         <div class="player-name">" + pl.name + "</div>"
                         <div class="player-money"><span>$</span><span>" + pl.money + "</span></div>" +
                    </div>-->
-           </div>
-       </div>
-   </main>
+        </div>
+    </div>
+</main>
 
-   <script src="jquery/jquery.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
-   <script src="client.js"></script>
+<script src="jquery/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="client.js"></script>
 
-   </body>
-   </html>
+</body>
+</html>

@@ -2,7 +2,7 @@ type PlayerState = {
     name: string;
     money: number;
     position: number;
-    colour: "Orange" | "Blue" | "Pirple" | "Green" ;
+    colour: "Orange" | "Blue" | "Pirple" | "Green";
 }
 
 type GameField = {
@@ -51,52 +51,74 @@ class Client {
             //отрисовывает подключенного игрока
             document.getElementById('style').setAttribute('href', 'styles.css');
             let num = 0;
-            for (let pl of data){
-                $("#players").append("<div class=\"player\" id='player" + num +"'>\n" +
+            for (let pl of data) {
+                $("#players").append("<div class=\"player\" id='player" + num + "'>\n" +
                     "        <div class=\"player-name\">" + pl.name + "</div>\n" +
                     "        <div class=\"player-money\"><span>$</span><span id=\"money\">" + pl.money + "</span></div>\n" +
                     "    </div>");
                 num++;
             }
+            $("#player0").addClass("move"); //добавляем клас для подсветки ходящего
             //переключем экраны
-            $(".start").attr('hidden','hidden');
+            $(".start").attr('hidden', 'hidden');
             $(".game").removeAttr('hidden');
         });
 
         //обновление данных экранов пользователей
         this.socket.on("updPlayer", (data: PlayerState[]) => {
             let num = 0;
-            for (let pl of data){
+            for (let pl of data) {
                 $("div#player" + num + " div.player-name").text(pl.name);
                 $("div#player" + num + " div.player-money span#money").text(pl.money);
                 //TODO сюда вставку для удаления фишек с прошлой позикии и постановкой на новую
                 num++;
             }
         })
+
+        this.socket.on("updMovePlayer", (whoMove: number, maxPlayer: number) => {
+            let prevPos = whoMove - 1;
+            console.log("maxPl "+ maxPlayer);
+            console.log("prewPl "+ prevPos);
+            if (prevPos >= 0) {
+                $("#player" + prevPos).removeClass("move");
+            } else {
+                $("#player" + (maxPlayer-1)).removeClass("move");
+            }
+
+            $("#player" + whoMove).addClass("move");
+        })
+
         this.socket.on("setFlag", (position: number, colour: string) => {
-            $("div#cell_"+position+" div.flag").append("<img alt=\"house\" src=\"images/flag" + colour + ".svg\">");
+            $("div#cell_" + position + " div.flag").append("<img alt=\"house\" src=\"images/flag" + colour + ".svg\">");
         })
 
         // уведомления о статусе регистрации
-        this.socket.on('responseNewUser', function(message: string) {
+        this.socket.on('responseNewUser', function (message: string) {
             $(".start").append(message);
         })
 
         // сообщает что-то от сервера
-        this.socket.on('sendUser', function(message: any) {
+        this.socket.on('sendUser', function (message: any) {
             alert('The server has a message for you: ' + message);
         })
 
         //Слушает текстовые сообщения от сервера
-        this.socket.on('message', function(message: any) {
+        this.socket.on('message', function (message: any) {
             alert('The server has a message for you: ' + message); // сообщает что игрок подключился
         });
 
         this.socket.on("updDice", (ds1: number, ds2: number) => {
 
-            $('#dice1').attr('src', 'images/dice/dice' + ds1 +'.svg')
-            $('#dice2').attr('src', 'images/dice/dice' + ds2 +'.svg')
+            $('#dice1').attr('src', 'images/dice/dice' + ds1 + '.svg')
+            $('#dice2').attr('src', 'images/dice/dice' + ds2 + '.svg')
 
+        })
+
+        this.socket.on("updChip", (lastPos: number, newPos: number) => {
+
+            //TODO удаляет все дома а не один
+            $("div#cell_" + lastPos + " div.chip img:first-child").remove();
+            $("div#cell_" + newPos + " div.chip").append("<img alt=\"house\" src=\"images/house/house-icon.svg\">")
         })
 
     }
@@ -117,7 +139,7 @@ class Client {
         this.socket.emit("rollDice", this.socket.id);
         //заготовка на сокрытие экранов
         $("#players").removeAttr('hidden');
-        $('.butt').attr('hidden','hidden');
+        $('.butt').attr('hidden', 'hidden');
         console.log("roll");
     }
 

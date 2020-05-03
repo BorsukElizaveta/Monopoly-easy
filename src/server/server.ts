@@ -85,10 +85,15 @@ class App {
                         console.log(socket.id + " game wait roll, move this player");
                         let ds1 = this.getRandomIntInclusive(1,6); //значение 1 кубика
                         let ds2 = this.getRandomIntInclusive(1,6); //значение 2 кубика
+                        let lastPos = this.players[socket.id].getPosition();
+
                         this.games[0].move(ds1+ds2); //передвигаем фишку
                         console.log(ds1 + " " + ds2);
+
                         this.io.emit("updDice", ds1, ds2); //данные клиент для отрисовки кубиков
+
                         this.io.emit("updPlayer",this.games[0].getPlayersData()); //обновленние данных экрана пользователя
+                        this.io.emit("updChip", lastPos, this.players[socket.id].getPosition());
                         //TODO ответ сервера для обновления позиции фишки
                     }
                     else {
@@ -105,6 +110,7 @@ class App {
                     if (stateGame.whoMove == socket.id) {
                         console.log(socket.id + " move ends this player");
                         this.games[0].endMove();
+                        this.io.emit("updMovePlayer", this.games[0].getInxWhoMove(), this.games[0].getCountPlayer())
                         //TODO добавить ответ сервера чтоб блокировать кнопки на клиенте
                     }
                     else {
