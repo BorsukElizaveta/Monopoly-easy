@@ -38,24 +38,7 @@ export default class MonopolyGame {
         this._gameStatus = 1; //меняем статус на ожидание завершения хода
         this._gameState.gameStatus = this._gameStatus;
 
-        //TODO это нужно в закрывваюзую функцию хода
-        // if (this._whoMove == Object.keys(this._players)[this._maxPlayers-1]){
-        //     console.log("last player");
-        //     this._whoMove = Object.keys(this._players)[0];
-        //     this._gameState.whoMove = this._whoMove;
-        // }
-        // else {
-        //     for (let i = 0; i < this._maxPlayers-1; i++) {
-        //         console.log(i);
-        //         if (this._whoMove == Object.keys(this._players)[i]) {
-        //             console.log(Object.keys(this._players));
-        //             this._whoMove = Object.keys(this._players)[++i]; //обновляем ходящего
-        //             this._gameState.whoMove = this._whoMove; //обновляем данные для вызачи
-        //             console.log("next " + this._whoMove);
-        //             break;
-        //         }
-        //     }
-        //}
+
     }
 
     public endMove() {
@@ -121,6 +104,17 @@ export default class MonopolyGame {
             allPlayers.push(value.getPlayer());
         }
         return allPlayers;
+    }
+
+    public getInxWhoMove(): number {
+        let key = Object.keys(this._players);
+        console.log(key);
+        console.log(key.indexOf(this._whoMove));
+        return key.indexOf(this._whoMove);
+    }
+
+    public getCountPlayer(): number{
+        return Object.keys(this._players).length;
     }
 
     private createField() {
