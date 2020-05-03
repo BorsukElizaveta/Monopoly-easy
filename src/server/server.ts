@@ -39,10 +39,15 @@ class App {
 
             socket.on('disconnect', () => {
                 console.log('socket disconnected : ' + socket.id);
-                if (this.players && this.players[socket.id]) {
+                if (typeof this.games[0] != 'undefined'){
+                    this.games[0].delPlayer(socket.id, this.io);
+
+                }
+                else if (this.players && this.players[socket.id]) {
                     delete this.players[socket.id] //удаляет из партии игрока от кого пришел 'disconnected'
                     console.log("In game " + (Object.keys(this.players).length) + " players");
                 }
+
                 //TODO надо проработать убирание пользователя из интерфейса если он отвалился
             });
 
@@ -89,7 +94,6 @@ class App {
 
                         this.games[0].move(ds1+ds2); //передвигаем фишку
                         console.log(ds1 + " " + ds2);
-
                         this.io.emit("updDice", ds1, ds2); //данные клиент для отрисовки кубиков
 
                         this.io.emit("updPlayer",this.games[0].getPlayersData()); //обновленние данных экрана пользователя

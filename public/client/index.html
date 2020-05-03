@@ -26,19 +26,19 @@
     </form>
 </main>
 
-<main class="game"> <!--hidden-->
+<main class="game" hidden> <!--hidden-->
     <!-- игровое поле -->
     <div class="field">
         <div class="actions">
-            <button type=button class="buy-house-button" onClick="client.buyHouse()">
+            <button type=button class="buy-house-button" onClick="client.buyHouse()" hidden >
                 <img alt="buy-house" src="images/house/buy-house.svg">
             </button>
 
-            <button type=button class="sale-house-button" onClick="client.sellHouse()">
+            <button type=button class="sale-house-button" onClick="client.sellHouse()" hidden>
                 <img alt="sale-house" src="images/house/sale-house.svg">
             </button>
 
-            <button type=button class="sale-card-button" onClick="client.sellCard()">
+            <button type=button class="sale-card-button" onClick="client.sellCard()" hidden>
                 <img alt="sale-card" src="images/card/sale-card.svg">
             </button>
 
@@ -78,10 +78,7 @@
                     <div class="space property commerce">
                         <div class="container" id="cell_9">
                             <div class="color-bar cyan">
-                                <img alt="house" src="images/house/house-icon.svg">
-                                <img alt="house" src="images/house/house-icon.svg">
-                                <img alt="house" src="images/house/house-icon.svg">
-                                <img alt="house" src="images/house/house-icon.svg">
+
                             </div>
                             <div class="name">Парковая ул.</div>
                             <div class="color-bar no-border chip">
@@ -493,6 +490,13 @@
                    </div>-->
         </div>
     </div>
+</main>
+<main class="win" hidden>
+    you win!
+</main>
+
+<main class="loose" hidden>
+    you loose
 </main>
 
 <script src="jquery/jquery.min.js"></script>

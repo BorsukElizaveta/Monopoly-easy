@@ -92,6 +92,18 @@ class Client {
             $("div#cell_" + position + " div.flag").append("<img alt=\"house\" src=\"images/flag" + colour + ".svg\">");
         })
 
+        this.socket.on("delFlag", (position: number) =>{
+            $("div#cell_" + position + " div.flag img").remove();
+        })
+
+        this.socket.on("delChip", (pos: number)=>{
+            $("div#cell_" + pos + " div.chip img:first-child").remove();
+        })
+
+        this.socket.on("delPlayer", (num: number) => {
+            $("div#player"+ num).remove();
+        })
+
         // уведомления о статусе регистрации
         this.socket.on('responseNewUser', function (message: string) {
             $(".start").append(message);
@@ -120,6 +132,12 @@ class Client {
             $("div#cell_" + lastPos + " div.chip img:first-child").remove();
             $("div#cell_" + newPos + " div.chip").append("<img alt=\"house\" src=\"images/house/house-icon.svg\">")
         })
+
+        this.socket.on("win", (str: string)=>{
+            $(".game").attr('hidden', 'hidden');
+            $(".win").removeAttr('hidden');
+        })
+
 
     }
 

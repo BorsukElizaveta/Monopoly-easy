@@ -23,6 +23,11 @@ export default class MonopolyGame {
         console.log("the start player: ");
         console.log(this._whoMove);
         //console.log("the first player: " + this._whoMove);
+        let test = { "Kate" : 12 , "cats" : 34, "tompson": 23}
+        console.log("test1: " + Object.keys(test).length);
+        delete test.Kate;
+
+        console.log("test_del: " + Object.keys(test).length);
 
         console.log("Game start, waiting to Move player: ", this._players[this._whoMove].getPlayer().name);
         this._gameState = {
@@ -38,7 +43,6 @@ export default class MonopolyGame {
         this._gameStatus = 1; //меняем статус на ожидание завершения хода
         this._gameState.gameStatus = this._gameStatus;
 
-<<<<<<< HEAD
         //проверяем что если встали на купленную ячеку нужно перевести деньги
         let id_cell = this._players[this._whoMove].getPosition();
         if (this._fields[id_cell].type == "commerceCell") {
@@ -48,9 +52,6 @@ export default class MonopolyGame {
                 this._players[this._fields[id_cell].owner].setMoney(this._players[this._whoMove].getMoney() + cost);
             }
         }
-=======
-
->>>>>>> master
     }
 
     public endMove() {
@@ -104,6 +105,42 @@ export default class MonopolyGame {
         }
     }
 
+    public delPlayer(id:  string, io: socketIO.Server){
+        // if (this._whoMove == id){
+        //     this.endMove();
+        // }
+
+        console.log(id);
+        io.emit("delChip", this._players[id].getPosition());
+        let pos = this.getInxPlayer(id);
+        console.log("before del");
+        console.log(Object.keys(this._players))
+        delete this._players[id];
+        console.log("after del");
+        console.log(Object.keys(this._players))
+        io.emit("delPlayer", pos);
+
+        if (Object.keys(this._players).length == 1){
+        //     // @ts-ignore
+             let key = Object.keys(this._players);
+        //     id.broadcast(key[0])('win','wwin');
+             console.log("player win "+key);
+        //     return key[0];
+        }
+
+        for (let i=0; i < 40 ; i++){
+            if (this._fields[i].type == "commerceCell") {
+                if (this._fields[i].hasOwnProperty("owner")) {
+                    if (this._fields[i].owner == id){
+                        delete this._fields[i].owner;
+                        io.emit("delFlag", i);
+
+                    }
+                }
+            }
+        }
+    }
+
     //возвращает статус игры
     public gameState(): GameState {
         return this._gameState;
@@ -123,6 +160,13 @@ export default class MonopolyGame {
         console.log(key);
         console.log(key.indexOf(this._whoMove));
         return key.indexOf(this._whoMove);
+    }
+
+    public getInxPlayer(id: string): number {
+        let key = Object.keys(this._players);
+        console.log(key);
+        console.log(key.indexOf(id));
+        return key.indexOf(id);
     }
 
     public getCountPlayer(): number{
